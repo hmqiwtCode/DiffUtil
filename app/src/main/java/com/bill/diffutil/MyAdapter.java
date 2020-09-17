@@ -1,9 +1,12 @@
 package com.bill.diffutil;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -13,20 +16,34 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
     private List<String> data;
+    Context context;
 
-    public MyAdapter(List<String> data) {
+    public MyAdapter(Context context,List<String> data) {
         this.data = data;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.e("VIEWTYPE",viewType+"");
         return new MyHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_data, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, int position) {
-        holder.bindData(data.get(position));
+    public void onBindViewHolder(@NonNull MyHolder holder, final int position) {
+        final String cla = data.get(position);
+        holder.bindData(cla);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, cla, Toast.LENGTH_SHORT).show();
+                data.remove(position);
+                notifyDataSetChanged();
+
+            }
+        });
+
     }
 
     @Override
@@ -39,6 +56,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
         MyHolder(@NonNull View itemView) {
             super(itemView);
             tvNama = itemView.findViewById(R.id.tv_name);
+
         }
 
         void bindData(String s) {

@@ -28,10 +28,10 @@ public class MyDiffUtilsCallBack extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        if (oldItemPosition == newItemPosition){
+        if (oldList.get(oldItemPosition).equals(newList.get(newItemPosition))){
             Log.e("SAME","SAME");
         }
-        return oldItemPosition == newItemPosition;
+        return oldList.get(oldItemPosition).equals(newList.get(newItemPosition));
     }
 
     @Override

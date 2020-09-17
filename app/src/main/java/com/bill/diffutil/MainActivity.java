@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         initData();
 
-        final MyAdapter myAdapter = new MyAdapter(data);
+        final MyAdapter myAdapter = new MyAdapter(this,data);
         rvData.setAdapter(myAdapter);
 
         btnInsert.setOnClickListener(new View.OnClickListener() {
